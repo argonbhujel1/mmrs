@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Academic Programs | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">OUR PROGRAMS</div>
+      <h2 class="section-title">Courses &amp; Streams</h2>
+      <p class="section-desc">Choose the program that matches your goals — from school grades to +2 and Bachelor of Business Studies.</p>
+    </div>
+
+    {% if school %}
+    <h3 style="color:var(--navy);margin:32px 0 16px;">School Level</h3>
+    <div class="programs-grid">
+      {% for p in school %}
+      <div class="program-card">
+        <div class="program-img">{% if p.image %}<img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}">{% else %}📚{% endif %}</div>
+        <div class="program-body">
+          <div class="program-level">{{ p.level }}</div>
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.description[:100] if p.description else '' }}</p>
+          <a href="{{ url_for('main.program_detail', slug=p.slug) }}" class="program-link">→</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if plus2 %}
+    <h3 style="color:var(--navy);margin:40px 0 16px;">+2 Programs (NEB)</h3>
+    <div class="programs-grid">
+      {% for p in plus2 %}
+      <div class="program-card">
+        <div class="program-img">{% if p.image %}<img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}">{% else %}🔬{% endif %}</div>
+        <div class="program-body">
+          <div class="program-level">{{ p.level }}</div>
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.description[:120] if p.description else '' }}</p>
+          <a href="{{ url_for('main.program_detail', slug=p.slug) }}" class="program-link">→</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if college %}
+    <h3 style="color:var(--navy);margin:40px 0 16px;">College – Tribhuvan University</h3>
+    <div class="programs-grid">
+      {% for p in college %}
+      <div class="program-card">
+        <div class="program-img">{% if p.image %}<img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}">{% else %}🎓{% endif %}</div>
+        <div class="program-body">
+          <div class="program-level">{{ p.level }} · TU Affiliated</div>
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.description[:120] if p.description else '' }}</p>
+          <a href="{{ url_for('main.program_detail', slug=p.slug) }}" class="program-link">→</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div style="text-align:center;margin-top:48px;">
+      <a href="{{ url_for('admission.admission') }}" class="btn btn-primary">Apply Online</a>
+      <a href="{{ url_for('main.academics') }}" class="btn" style="margin-left:12px;background:var(--light-blue);color:var(--navy);">← Academic Overview</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

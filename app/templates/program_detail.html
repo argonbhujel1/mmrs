@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ program.name }} | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container" style="max-width:800px;">
+    <div class="program-level">{{ program.level or program.category }}</div>
+    <h1 class="section-title">{{ program.name }}</h1>
+    <p style="margin:20px 0;line-height:1.8;">{{ program.description }}</p>
+    {% if program.category == 'college' %}
+    <p style="color:var(--navy);font-weight:600;">Affiliated with Tribhuvan University (TU).</p>
+    {% endif %}
+    <a href="{{ url_for('admission.admission') }}" class="btn btn-primary" style="margin-top:24px;">Apply for this Program</a>
+    <a href="{{ url_for('main.programs') }}" class="btn btn-outline" style="margin-top:24px;margin-left:12px;color:var(--navy);border-color:var(--navy);">← All Programs</a>
+  </div>
+</section>
+{% endblock %}

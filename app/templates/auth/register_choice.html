@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Register | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:50px;">
+  <div class="container" style="max-width:900px;">
+    <div class="section-header">
+      <div class="section-label">CREATE ACCOUNT</div>
+      <h1 class="section-title">Register</h1>
+      <p class="section-desc">Students must match school records. Parents and teachers can register here.</p>
+    </div>
+    <div class="portal-grid">
+      <a href="{{ url_for('auth.register_student') }}" class="glass-card portal-card">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🎓</div>
+        <h3 style="color:var(--navy);margin-bottom:8px;">Student Register</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);">Must match admin school data (ID or Name + Class + Parent phone)</p>
+      </a>
+      <a href="{{ url_for('auth.register_parent') }}" class="glass-card portal-card">
+        <div style="font-size:2.5rem;margin-bottom:12px;">👪</div>
+        <h3 style="color:var(--navy);margin-bottom:8px;">Parent Register</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);">Create parent account &amp; link your child</p>
+      </a>
+      <a href="{{ url_for('auth.register_teacher') }}" class="glass-card portal-card">
+        <div style="font-size:2.5rem;margin-bottom:12px;">👨‍🏫</div>
+        <h3 style="color:var(--navy);margin-bottom:8px;">Teacher Register</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);">Match admin record or request new account</p>
+      </a>
+    </div>
+    <p style="margin-top:28px;text-align:center;color:var(--text-muted);font-size:0.95rem;">
+      Already have an account? <a href="{{ url_for('auth.login_choice') }}" style="color:var(--navy);font-weight:600;">Login</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,406 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" {% if hero and hero.image %}style="background-image: linear-gradient(105deg, rgba(5,43,80,0.92) 0%, rgba(6,59,112,0.75) 45%, rgba(6,59,112,0.4) 100%), url('{{ url_for('static', filename=hero.image) }}'); background-size: cover; background-position: center;"{% endif %}></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-label">{{ hero.label if hero else 'LEARN  •  GROW  •  ACHIEVE' }}</div>
+      <h1 class="hero-title">{{ hero.title if hero else 'Welcome to\nMorang Model\nCollege & School' }}</h1>
+      <p class="hero-subtitle">{{ hero.subtitle if hero else 'Quality education, strong values and a brighter future for every student.' }}</p>
+      <div class="hero-btns">
+        <a href="{{ hero.cta_primary_link if hero else url_for('main.programs') }}" class="btn btn-primary">
+          {{ hero.cta_primary if hero else 'Explore Our Programs' }} →
+        </a>
+        <a href="{{ hero.cta_secondary_link if hero else url_for('admission.admission') }}" class="btn btn-outline">
+          {{ hero.cta_secondary if hero else 'Apply Online' }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE CARDS -->
+<section class="features">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon blue">🎓</div>
+        <h3>Quality Education</h3>
+        <p>Academic excellence with modern learning.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon green">👥</div>
+        <h3>Experienced Faculty</h3>
+        <p>Dedicated and qualified teaching staff.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon yellow">🏫</div>
+        <h3>Modern Infrastructure</h3>
+        <p>Safe, smart and student-friendly environment.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon purple">⭐</div>
+        <h3>Holistic Development</h3>
+        <p>Builds character, leadership & confidence.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon cyan">🏆</div>
+        <h3>Co-curricular Activities</h3>
+        <p>Sports, arts, clubs & more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon pink">❤️</div>
+        <h3>Supportive Community</h3>
+        <p>Together for a better tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image">
+        {% if about and about.image %}
+        <img src="{{ url_for('static', filename=about.image) }}" alt="Morang Model Campus">
+        {% else %}
+        <span>Campus Photo</span>
+        {% endif %}
+      </div>
+      <div class="about-content">
+        <div class="section-label">{{ about.label if about else 'ABOUT US' }}</div>
+        <h2 class="section-title">{{ about.title if about else 'Shaping Young Minds for a Better Tomorrow' }}</h2>
+        {% if about and about.content %}
+        {% for para in about.content.split('\n\n') %}
+        <p>{{ para }}</p>
+        {% endfor %}
+        {% else %}
+        <p>Morang Model Residential Secondary School is a private educational institution in Urlabari, Morang, committed to providing quality, practical, disciplined and value-based education while supporting students' academic and personal development.</p>
+        <p>The institution has been serving students since 2037 B.S. and provides education from early grades through Grade 12, including +2 programs in Science and Management.</p>
+        {% endif %}
+        <a href="{{ url_for('main.about') }}" class="btn btn-primary" style="margin-top:12px;">Learn More →</a>
+        <div class="stats-card">
+          <div class="stat-item">
+            <h4>Established</h4>
+            <p>{{ about.established if about else '2037 B.S.' }}</p>
+          </div>
+          <div class="stat-item">
+            <h4>Academic Level</h4>
+            <p>{{ about.academic_level if about else 'Nursery – Grade 12' }}</p>
+          </div>
+          <div class="stat-item">
+            <h4>+2 Programs</h4>
+            <p>{{ about.programs_plus2 if about else 'Science & Management' }}</p>
+          </div>
+          <div class="stat-item">
+            <h4>Affiliation</h4>
+            <p>{{ about.affiliation if about else 'NEB / TU-linked BBS' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="section" style="background:#F8FBFE;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">OUR PROGRAMS</div>
+      <h2 class="section-title">Academic Programs</h2>
+      <p class="section-desc">Explore academic opportunities designed to build strong foundations, practical knowledge and future-ready skills.</p>
+    </div>
+    <div class="programs-grid">
+      {% for p in programs %}
+      <div class="program-card">
+        <div class="program-img">
+          {% if p.image %}<img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}">{% else %}📚{% endif %}
+        </div>
+        <div class="program-body">
+          <div class="program-level">{{ p.level or p.category }}</div>
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.description[:100] }}{% if p.description|length > 100 %}...{% endif %}</p>
+          <a href="{{ url_for('main.program_detail', slug=p.slug) }}" class="program-link">→</a>
+        </div>
+      </div>
+      {% else %}
+      <p>Programs will be listed here.</p>
+      {% endfor %}
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="{{ url_for('main.programs') }}" class="btn btn-primary">View All Programs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section class="section why-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Why Choose Morang Model?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="icon">📖</div><h3>Quality Education</h3></div>
+      <div class="why-card"><div class="icon">👨‍🏫</div><h3>Experienced Teachers</h3></div>
+      <div class="why-card"><div class="icon">🔬</div><h3>Science & Computer Labs</h3></div>
+      <div class="why-card"><div class="icon">📚</div><h3>Library & Resources</h3></div>
+      <div class="why-card"><div class="icon">⚽</div><h3>Sports & ECA</h3></div>
+      <div class="why-card"><div class="icon">💬</div><h3>Counselling & Support</h3></div>
+      <div class="why-card"><div class="icon">🎖️</div><h3>Scholarship Opportunities</h3></div>
+      <div class="why-card"><div class="icon">🚌</div><h3>Transportation</h3></div>
+      <div class="why-card"><div class="icon">🖥️</div><h3>Multimedia Learning</h3></div>
+      <div class="why-card"><div class="icon">🍽️</div><h3>Cafeteria</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">CAMPUS</div>
+      <h2 class="section-title">Our Facilities</h2>
+    </div>
+    <div class="facilities-grid">
+      {% for f in facilities[:6] %}
+      <div class="facility-card">
+        {% if f.image %}<img src="{{ url_for('static', filename=f.image) }}" alt="{{ f.name }}">{% endif %}
+        <div class="facility-overlay">
+          <h3>{{ f.name }}</h3>
+          <p>{{ f.description[:80] if f.description else '' }}{% if f.description and f.description|length > 80 %}...{% endif %}</p>
+        </div>
+      </div>
+      {% else %}
+      <div class="facility-card"><div class="facility-overlay"><h3>Computer Lab</h3><p>Modern computer lab with internet access.</p></div></div>
+      <div class="facility-card"><div class="facility-overlay"><h3>Science Lab</h3><p>Well-equipped laboratory for practical learning.</p></div></div>
+      <div class="facility-card"><div class="facility-overlay"><h3>Library</h3><p>Resource-rich library and study spaces.</p></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPAL -->
+<section class="section" style="background:#F8FBFE;">
+  <div class="container">
+    <div class="principal-grid">
+      <div class="principal-photo">
+        {% if principal and principal.photo %}
+        <img src="{{ url_for('static', filename=principal.photo) }}" alt="Principal">
+        {% else %}
+        <span>Principal Photo</span>
+        {% endif %}
+      </div>
+      <div class="principal-content">
+        <div class="section-label">MESSAGE FROM THE PRINCIPAL</div>
+        <h2 class="section-title">{{ principal.title if principal else 'Building Knowledge, Character & Confidence' }}</h2>
+        <blockquote>
+          {{ principal.message if principal else 'Welcome to Morang Model College & School. Our institution is dedicated to nurturing young minds with a balanced approach that values academic excellence, character building and holistic development.' }}
+        </blockquote>
+        <div class="principal-name">{{ principal.name if principal else 'Principal' }}</div>
+        <div class="principal-desig">{{ principal.designation if principal else 'Principal' }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTICES -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-end;text-align:left;">
+      <div>
+        <div class="section-label">UPDATES</div>
+        <h2 class="section-title">Latest Notice & News</h2>
+      </div>
+      <a href="{{ url_for('main.notices') }}" class="btn btn-primary" style="flex-shrink:0;">View All →</a>
+    </div>
+    <div class="notice-list">
+      {% for n in notices %}
+      <a href="{{ url_for('main.notice_detail', slug=n.slug) }}" class="notice-item">
+        <div class="notice-date">
+          <span class="day">{{ n.date.strftime('%d') if n.date else '--' }}</span>
+          <span class="month">{{ n.date.strftime('%b') if n.date else '' }}</span>
+        </div>
+        <div class="notice-body">
+          <span class="notice-cat">{{ n.category or 'Notice' }}</span>
+          <h3>{{ n.title }}</h3>
+          <p>{{ n.content[:120] if n.content else '' }}{% if n.content and n.content|length > 120 %}...{% endif %}</p>
+        </div>
+      </a>
+      {% else %}
+      <p>No notices at the moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+{% if events %}
+<section class="section" style="background:#F8FBFE;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">HAPPENING</div>
+      <h2 class="section-title">Upcoming Events</h2>
+    </div>
+    <div class="events-grid">
+      {% for e in events %}
+      <div class="event-card">
+        <div class="event-img">{% if e.image %}<img src="{{ url_for('static', filename=e.image) }}" alt="{{ e.title }}">{% else %}📅{% endif %}</div>
+        <div class="event-body">
+          <div class="event-date">{{ e.event_date.strftime('%d %b %Y') if e.event_date else '' }}</div>
+          <h3>{{ e.title }}</h3>
+          <p>{{ e.description[:80] if e.description else '' }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- GALLERY PREVIEW -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">MEMORIES</div>
+      <h2 class="section-title">School Gallery</h2>
+    </div>
+    <div class="gallery-grid">
+      {% for img in gallery %}
+      <div class="gallery-item">
+        <img src="{{ url_for('static', filename=img.image) }}" alt="{{ img.title or 'Gallery' }}">
+      </div>
+      {% else %}
+      {% for i in range(4) %}
+      <div class="gallery-item" style="background:var(--light-blue);display:flex;align-items:center;justify-content:center;color:var(--navy);">Photo</div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+    <div style="text-align:center;margin-top:28px;">
+      <a href="{{ url_for('main.gallery') }}" class="btn btn-primary">View Full Gallery →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Start Your Journey<br>at Morang Model</h2>
+    <p>Give your child a strong foundation for academic success, personal growth and a brighter future.</p>
+    <div class="cta-btns">
+      <a href="{{ url_for('admission.admission') }}" class="btn btn-primary">Apply Online</a>
+      <a href="{{ url_for('main.contact') }}" class="btn btn-outline">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT PREVIEW -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">GET IN TOUCH</div>
+      <h2 class="section-title">Contact Us</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-list">
+          <div class="contact-item">
+            <div class="icon">📍</div>
+            <div>
+              <h4>Address</h4>
+              <p>{{ contact.address if contact else 'Urlabari, Morang, Koshi Province, Nepal' }}</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">☎</div>
+            <div>
+              <h4>Phone</h4>
+              <p>{{ contact.phone if contact else '+977-21-542730' }}</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">✉</div>
+            <div>
+              <h4>Email</h4>
+              <p>{{ contact.email if contact else 'morangmodel2037@gmail.com' }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-area">
+          {% if contact and contact.map_embed %}
+          <iframe src="{{ contact.map_embed }}" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
+          {% else %}
+          <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);">Map will appear here</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="contact-form">
+        <form method="POST" action="{{ url_for('main.contact') }}">
+          <div class="form-group">
+            <label>Name *</label>
+            <input type="text" name="name" required>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="phone">
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" name="subject">
+          </div>
+          <div class="form-group">
+            <label>Message *</label>
+            <textarea name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- HTML EMBEDS & MULTI IMAGES -->
+{% if embeds %}
+<section class="section">
+  <div class="container">
+    {% for e in embeds %}
+    <div class="embed-block">
+      {% if e.title %}<h3 style="color:var(--navy);margin-bottom:12px;">{{ e.title }}</h3>{% endif %}
+      {% if e.embed_html %}
+      <div class="embed-html">{{ e.embed_html | safe }}</div>
+      {% endif %}
+      {% if e.images %}
+      {% set imgs = e.images | safe %}
+      <div class="multi-images" id="embed-imgs-{{ e.id }}"></div>
+      <script>
+      (function(){
+        try {
+          var imgs = {{ e.images | safe }};
+          if (typeof imgs === 'string') imgs = JSON.parse(imgs);
+          var el = document.getElementById('embed-imgs-{{ e.id }}');
+          if (el && Array.isArray(imgs)) {
+            imgs.forEach(function(src){
+              var img = document.createElement('img');
+              img.src = '/static/' + src;
+              img.alt = '{{ e.title or "Image" }}';
+              el.appendChild(img);
+            });
+          }
+        } catch(err) {}
+      })();
+      </script>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

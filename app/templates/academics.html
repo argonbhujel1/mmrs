@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Academics | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">ACADEMICS</div>
+      <h2 class="section-title">Our Academic System</h2>
+      <p class="section-desc">A clear pathway from early childhood through secondary education — focused on quality, discipline and holistic growth.</p>
+    </div>
+
+    <div class="about-grid" style="margin-bottom:48px;">
+      <div class="about-content">
+        <h3 style="color:var(--navy);margin-bottom:12px;">Academic Philosophy</h3>
+        <p style="color:var(--text-muted);margin-bottom:12px;">At Morang Model we combine strong classroom teaching with practical learning, values education and co-curricular activities. Our aim is to prepare students not only for board examinations but for higher education and responsible citizenship.</p>
+        <p style="color:var(--text-muted);">We follow the curriculum of the National Examination Board (NEB) for school and +2 levels, and Tribhuvan University for the BBS program.</p>
+      </div>
+      <div class="stats-card" style="margin-top:0;">
+        <div class="stat-item"><h4>Levels</h4><p>{{ about.academic_level if about else 'Nursery – Grade 12' }}</p></div>
+        <div class="stat-item"><h4>Board</h4><p>NEB (School &amp; +2)</p></div>
+        <div class="stat-item"><h4>Higher Ed</h4><p>TU – BBS</p></div>
+        <div class="stat-item"><h4>Since</h4><p>{{ about.established if about else '2037 B.S.' }}</p></div>
+      </div>
+    </div>
+
+    <h3 style="color:var(--navy);margin-bottom:20px;text-align:center;">School Level Structure</h3>
+    <div class="programs-grid">
+      {% for p in school_programs %}
+      <div class="program-card">
+        <div class="program-img">{% if p.image %}<img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}">{% else %}📚{% endif %}</div>
+        <div class="program-body">
+          <div class="program-level">{{ p.level }}</div>
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.description[:100] if p.description else '' }}</p>
+        </div>
+      </div>
+      {% else %}
+      <p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">School-level programs are managed from the admin panel.</p>
+      {% endfor %}
+    </div>
+
+    <div style="text-align:center;margin-top:40px;">
+      <p style="margin-bottom:16px;color:var(--text-muted);">Looking for +2 Science, +2 Management or BBS?</p>
+      <a href="{{ url_for('main.programs') }}" class="btn btn-primary">View Specific Programs →</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

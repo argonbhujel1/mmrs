@@ -1,0 +1,21 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Facilities{% endblock %}
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+  <h1 style="color:var(--navy);">Facilities</h1>
+  <a href="{{ url_for('admin.facility_add') }}" class="btn btn-primary">Add Facility</a>
+</div>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Name</th><th>Order</th><th>Active</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.name }}</td><td>{{ item.order }}</td><td>{{ 'Yes' if item.is_active else 'No' }}</td>
+        <td><a href="{{ url_for('admin.facility_edit', id=item.id) }}">Edit</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

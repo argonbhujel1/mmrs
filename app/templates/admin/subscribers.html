@@ -1,0 +1,21 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Subscribers{% endblock %}
+{% block content %}
+<h1 style="color:var(--navy);margin-bottom:24px;">Newsletter Subscribers</h1>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Email</th><th>Subscribed At</th><th>Active</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.email }}</td>
+        <td>{{ item.subscribed_at.strftime('%d %b %Y %H:%M') if item.subscribed_at else '' }}</td>
+        <td>{{ 'Yes' if item.is_active else 'No' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="3">No subscribers yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Teachers{% endblock %}
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+  <h1 style="color:var(--navy);">Teachers</h1>
+  <a href="{{ url_for('admin.teacher_add') }}" class="btn btn-primary">Add Teacher</a>
+</div>
+<p style="margin-bottom:16px;color:var(--text-muted);font-size:0.9rem;">Teachers listed here can login as Teacher. Upload any document format.</p>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>ID</th><th>Name</th><th>Designation</th><th>Department</th><th>Active</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.teacher_id or item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.designation }}</td>
+        <td>{{ item.department }}</td>
+        <td>{{ 'Yes' if item.is_active else 'No' }}</td>
+        <td>
+          <a href="{{ url_for('admin.teacher_edit', id=item.id) }}">Edit</a>
+          <form method="POST" action="{{ url_for('admin.teacher_delete', id=item.id) }}" style="display:inline;" onsubmit="return confirm('Delete teacher?')">
+            <button type="submit" style="background:none;border:none;color:#c00;cursor:pointer;margin-left:8px;">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6">No teachers yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

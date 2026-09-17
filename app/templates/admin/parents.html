@@ -1,0 +1,29 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Parents{% endblock %}
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+  <h1>Parents</h1>
+  <a href="{{ url_for('admin.parent_add') }}" class="btn btn-primary">Add Parent</a>
+</div>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Name</th><th>Phone</th><th>Student</th><th>Class</th><th>Active</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.name }}</td><td>{{ item.phone }}</td><td>{{ item.student_name }}</td><td>{{ item.student_class }}</td>
+        <td>{{ 'Yes' if item.is_active else 'No' }}</td>
+        <td>
+          <a href="{{ url_for('admin.parent_edit', id=item.id) }}">Edit</a>
+          <form method="POST" action="{{ url_for('admin.parent_delete', id=item.id) }}" style="display:inline;" onsubmit="return confirm('Delete?')">
+            <button type="submit" style="background:none;border:none;color:#f87171;cursor:pointer;margin-left:8px;">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6">No parents yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

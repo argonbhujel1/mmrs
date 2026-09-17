@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Notices & News | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">UPDATES</div>
+      <h2 class="section-title">Latest Notice & News</h2>
+    </div>
+    <div class="notice-list">
+      {% for n in notices %}
+      <a href="{{ url_for('main.notice_detail', slug=n.slug) }}" class="notice-item">
+        <div class="notice-date">
+          <span class="day">{{ n.date.strftime('%d') if n.date else '--' }}</span>
+          <span class="month">{{ n.date.strftime('%b') if n.date else '' }}</span>
+        </div>
+        <div class="notice-body">
+          <span class="notice-cat">{{ n.category or 'Notice' }}</span>
+          <h3>{{ n.title }}</h3>
+          <p>{{ n.content[:150] if n.content else '' }}{% if n.content and n.content|length > 150 %}...{% endif %}</p>
+        </div>
+      </a>
+      {% else %}
+      <p style="text-align:center;color:var(--text-muted);">No notices published yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Announcement{% endblock %}
+{% block content %}
+<h1 style="margin-bottom:24px;">{{ 'Edit' if item else 'Add' }} Announcement</h1>
+<div class="admin-card">
+  <form method="POST">
+    <div class="form-group"><label>Text *</label><textarea name="text" rows="3" required>{{ item.text if item else '' }}</textarea></div>
+    <div class="form-group"><label>Link (optional)</label><input type="text" name="link" value="{{ item.link if item else '' }}" placeholder="/admission or https://..."></div>
+    <div class="form-group"><label>Style</label>
+      <select name="style">
+        <option value="marquee" {% if not item or item.style=='marquee' %}selected{% endif %}>Running (Marquee) bar</option>
+        <option value="floating" {% if item and item.style=='floating' %}selected{% endif %}>Floating bubble</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Order</label><input type="number" name="order" value="{{ item.order if item else 0 }}"></div>
+    <div class="form-group"><label><input type="checkbox" name="is_active" {% if not item or item.is_active %}checked{% endif %}> Active</label></div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

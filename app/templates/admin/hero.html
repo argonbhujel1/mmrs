@@ -1,0 +1,18 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Hero{% endblock %}
+{% block content %}
+<h1 style="color:var(--navy);margin-bottom:24px;">Hero Section</h1>
+<div class="admin-card">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-group"><label>Label</label><input type="text" name="label" value="{{ hero.label or '' }}"></div>
+    <div class="form-group"><label>Title</label><textarea name="title" rows="3">{{ hero.title or '' }}</textarea></div>
+    <div class="form-group"><label>Subtitle</label><textarea name="subtitle" rows="2">{{ hero.subtitle or '' }}</textarea></div>
+    <div class="form-group"><label>Primary CTA</label><input type="text" name="cta_primary" value="{{ hero.cta_primary or '' }}"></div>
+    <div class="form-group"><label>Primary Link</label><input type="text" name="cta_primary_link" value="{{ hero.cta_primary_link or '' }}"></div>
+    <div class="form-group"><label>Secondary CTA</label><input type="text" name="cta_secondary" value="{{ hero.cta_secondary or '' }}"></div>
+    <div class="form-group"><label>Secondary Link</label><input type="text" name="cta_secondary_link" value="{{ hero.cta_secondary_link or '' }}"></div>
+    <div class="form-group"><label>Image</label><input type="file" name="image" accept="image/*"></div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

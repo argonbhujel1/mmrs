@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Contact Us | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">GET IN TOUCH</div>
+      <h2 class="section-title">Contact Us</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-list">
+          <div class="contact-item"><div class="icon">📍</div><div><h4>Address</h4><p>{{ contact.address if contact else 'Urlabari, Morang, Koshi Province, Nepal' }}</p></div></div>
+          <div class="contact-item"><div class="icon">☎</div><div><h4>Phone</h4><p>{{ contact.phone if contact else '+977-21-542730' }}</p></div></div>
+          <div class="contact-item"><div class="icon">✉</div><div><h4>Email</h4><p>{{ contact.email if contact else 'morangmodel2037@gmail.com' }}</p></div></div>
+          <div class="contact-item"><div class="icon">🌐</div><div><h4>Website</h4><p>{{ contact.website if contact else 'morangmodel.com' }}</p></div></div>
+        </div>
+        <div class="map-area" style="margin-top:24px;">
+          {% if contact and contact.map_embed %}
+          <iframe src="{{ contact.map_embed }}" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
+          {% else %}
+          <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);">Map area</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="contact-form">
+        <form method="POST">
+          <div class="form-group"><label>Name *</label><input type="text" name="name" required></div>
+          <div class="form-group"><label>Email *</label><input type="email" name="email" required></div>
+          <div class="form-group"><label>Phone</label><input type="tel" name="phone"></div>
+          <div class="form-group"><label>Subject</label><input type="text" name="subject"></div>
+          <div class="form-group"><label>Message *</label><textarea name="message" required></textarea></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

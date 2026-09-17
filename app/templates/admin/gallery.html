@@ -1,0 +1,26 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Gallery{% endblock %}
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+  <h1 style="color:var(--navy);">Gallery</h1>
+  <a href="{{ url_for('admin.gallery_add') }}" class="btn btn-primary">Add Image</a>
+</div>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Title</th><th>Category</th><th>Image</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.title }}</td><td>{{ item.category }}</td>
+        <td>{% if item.image %}<img src="{{ url_for('static', filename=item.image) }}" style="height:40px;border-radius:4px;">{% endif %}</td>
+        <td>
+          <form method="POST" action="{{ url_for('admin.gallery_delete', id=item.id) }}" onsubmit="return confirm('Delete?')">
+            <button type="submit" style="background:none;border:none;color:#c00;cursor:pointer;">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

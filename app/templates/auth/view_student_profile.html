@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}View Student Profile | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container" style="max-width:520px;">
+    <div class="section-header">
+      <div class="section-label">STUDENT PROFILE</div>
+      <h2 class="section-title">View Student Profile</h2>
+      <p class="section-desc">Enter the student's full name, class and parent contact number to view the profile. This is available to the public for verification only.</p>
+    </div>
+    <div class="contact-form">
+      <form method="POST">
+        <div class="form-group"><label>Student Full Name *</label><input type="text" name="name" required placeholder="As registered in school"></div>
+        <div class="form-group"><label>Class / Grade *</label><input type="text" name="class_grade" required placeholder="e.g. Grade 10, +2 Science"></div>
+        <div class="form-group"><label>Parent Contact Number *</label><input type="text" name="parent_phone" required placeholder="Parent phone registered in school"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">View Profile</button>
+      </form>
+    </div>
+    {% if student %}
+    <div class="admin-card" style="margin-top:32px;background:white;border-radius:12px;padding:28px;box-shadow:0 4px 20px rgba(6,59,112,0.08);">
+      <h3 style="color:var(--navy);margin-bottom:16px;">Student Profile</h3>
+      <p><strong>Name:</strong> {{ student.name }}</p>
+      <p><strong>Class:</strong> {{ student.class_grade }} {% if student.section %}– Section {{ student.section }}{% endif %}</p>
+      <p><strong>Parent:</strong> {{ student.parent_name or '—' }}</p>
+      <p><strong>Parent Phone:</strong> {{ student.parent_phone }}</p>
+      {% if student.photo %}
+      <p style="margin-top:12px;"><img src="{{ url_for('static', filename=student.photo) }}" alt="Photo" style="max-width:100px;border-radius:8px;"></p>
+      {% endif %}
+    </div>
+    {% elif searched %}
+    <p style="margin-top:24px;text-align:center;color:var(--text-muted);">No matching record found.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

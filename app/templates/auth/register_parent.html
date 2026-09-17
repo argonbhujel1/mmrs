@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Parent Register | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container" style="max-width:480px;">
+    <div class="section-header">
+      <div class="section-label">PARENT</div>
+      <h2 class="section-title">Parent Registration</h2>
+      <p class="section-desc">Create your parent account and link your child.</p>
+    </div>
+    <div class="contact-form glass-card">
+      <form method="POST">
+        <div class="form-group"><label>Your Full Name *</label><input type="text" name="name" required></div>
+        <div class="form-group"><label>Phone *</label><input type="text" name="phone" required></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email"></div>
+        <div class="form-group"><label>Child Name</label><input type="text" name="student_name"></div>
+        <div class="form-group"><label>Child Class</label><input type="text" name="student_class"></div>
+        <div class="form-group"><label>Password *</label><input type="password" name="password" required minlength="4"></div>
+        <div class="form-group"><label>Confirm Password *</label><input type="password" name="password2" required minlength="4"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Register as Parent</button>
+      </form>
+      <p style="margin-top:16px;text-align:center;font-size:0.9rem;">
+        <a href="{{ url_for('auth.login_parent') }}" style="color:var(--navy);">Already registered? Login</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

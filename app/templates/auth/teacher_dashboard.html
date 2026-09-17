@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Teacher Portal | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container" style="max-width:800px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:28px;">
+      <div>
+        <div class="section-label">TEACHER PORTAL</div>
+        <h2 class="section-title" style="margin:0;">Welcome, {{ teacher.name }}</h2>
+        <p style="color:var(--text-muted);">{{ teacher.designation or '' }} {% if teacher.department %}· {{ teacher.department }}{% endif %}</p>
+      </div>
+      <a href="{{ url_for('auth.logout') }}" class="btn btn-primary">Logout</a>
+    </div>
+
+    <!-- Send Homework -->
+    <div class="glass-card" style="padding:28px;margin-bottom:28px;">
+      <h3 style="color:var(--navy);margin-bottom:16px;">📤 Send Homework (with attachment)</h3>
+      <form method="POST" enctype="multipart/form-data" class="hw-form">
+        <div class="form-group"><label>Title *</label><input type="text" name="title" required placeholder="e.g. Maths Chapter 5 Exercise"></div>
+        <div class="form-group"><label>Class / Grade</label><input type="text" name="class_grade" placeholder="e.g. Grade 10, +2 Science"></div>
+        <div class="form-group"><label>Description</label><textarea name="description" rows="3" placeholder="Instructions for students..."></textarea></div>
+        <div class="form-group"><label>Attachment (PDF, DOC, image, ZIP…)</label><input type="file" name="attachment"></div>
+        <button type="submit" class="btn btn-primary">Send Homework</button>
+      </form>
+    </div>
+
+    <div class="glass-card" style="padding:28px;margin-bottom:28px;">
+      <h3 style="color:var(--navy);margin-bottom:16px;">My Recent Homework</h3>
+      {% for h in homework_list %}
+      <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+        <strong>{{ h.title }}</strong>
+        <span style="font-size:0.8rem;color:var(--text-muted);margin-left:8px;">{{ h.class_grade or 'All' }} · {{ h.created_at.strftime('%d %b %Y') if h.created_at else '' }}</span>
+        {% if h.attachment %}
+        <div style="margin-top:6px;"><a href="{{ url_for('main.view_file', path=h.attachment) }}" target="_blank" style="color:var(--navy);">📎 {{ h.attachment_name or 'Open attachment' }}</a></div>
+        {% endif %}
+      </div>
+      {% else %}
+      <p style="color:var(--text-muted);">No homework sent yet.</p>
+      {% endfor %}
+    </div>
+
+    <div class="glass-card" style="padding:28px;">
+      <h3 style="color:var(--navy);margin-bottom:16px;">Latest Notices</h3>
+      {% for n in notices %}
+      <div style="padding:10px 0;border-bottom:1px solid var(--border);">
+        <a href="{{ url_for('main.notice_detail', slug=n.slug) }}" style="color:var(--navy);font-weight:600;">{{ n.title }}</a>
+        <span style="font-size:0.8rem;color:var(--text-muted);"> · {{ n.date.strftime('%d %b') if n.date else '' }}</span>
+      </div>
+      {% else %}
+      <p style="color:var(--text-muted);">No notices.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

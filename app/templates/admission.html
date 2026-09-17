@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Online Admission | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container" style="max-width:720px;">
+    <div class="section-header">
+      <div class="section-label">ADMISSION</div>
+      <h2 class="section-title">Apply Online</h2>
+      <p class="section-desc">Submit your application for admission. Our team will review and contact you shortly.</p>
+    </div>
+    <div class="contact-form">
+      <form method="POST" enctype="multipart/form-data">
+        <div class="form-group"><label>Student Name *</label><input type="text" name="student_name" required></div>
+        <div class="form-group"><label>Date of Birth</label><input type="date" name="date_of_birth"></div>
+        <div class="form-group"><label>Gender</label>
+          <select name="gender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
+        </div>
+        <div class="form-group"><label>Parent/Guardian Name *</label><input type="text" name="parent_name" required></div>
+        <div class="form-group"><label>Phone *</label><input type="tel" name="phone" required></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email"></div>
+        <div class="form-group"><label>Address</label><textarea name="address" rows="2"></textarea></div>
+        <div class="form-group"><label>Previous School</label><input type="text" name="previous_school"></div>
+        <div class="form-group"><label>Applying For</label>
+          <select name="applying_for">
+            <option value="">Select</option>
+            <option>School (Nursery–10)</option>
+            <option>+2 Science</option>
+            <option>+2 Management</option>
+            <option>BBS</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Grade / Program</label><input type="text" name="grade_program" placeholder="e.g. Grade 5, Grade 11 Science"></div>
+        <div class="form-group"><label>Academic Information</label><textarea name="academic_info" rows="2"></textarea></div>
+        <div class="form-group"><label>Message</label><textarea name="message" rows="2"></textarea></div>
+        <div class="form-group"><label>Student Photo</label><input type="file" name="photo" accept="image/*"></div>
+        <div class="form-group"><label>Documents (PDF/Image)</label><input type="file" name="documents" accept=".pdf,image/*"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit Application</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

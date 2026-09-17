@@ -1,0 +1,18 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Parent Form{% endblock %}
+{% block content %}
+<h1 style="margin-bottom:24px;">{{ 'Edit' if item else 'Add' }} Parent</h1>
+<div class="admin-card">
+  <form method="POST">
+    <div class="form-group"><label>Parent ID</label><input type="text" name="parent_id" value="{{ item.parent_id if item else '' }}"></div>
+    <div class="form-group"><label>Full Name *</label><input type="text" name="name" value="{{ item.name if item else '' }}" required></div>
+    <div class="form-group"><label>Phone *</label><input type="text" name="phone" value="{{ item.phone if item else '' }}" required></div>
+    <div class="form-group"><label>Email</label><input type="email" name="email" value="{{ item.email if item else '' }}"></div>
+    <div class="form-group"><label>Child Student Name</label><input type="text" name="student_name" value="{{ item.student_name if item else '' }}"></div>
+    <div class="form-group"><label>Child Class</label><input type="text" name="student_class" value="{{ item.student_class if item else '' }}"></div>
+    <div class="form-group"><label>Password {% if item %}(blank = keep){% endif %}</label><input type="password" name="password" {% if not item %}required{% endif %}></div>
+    <div class="form-group"><label><input type="checkbox" name="is_active" {% if not item or item.is_active %}checked{% endif %}> Active</label></div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

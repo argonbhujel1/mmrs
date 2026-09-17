@@ -1,0 +1,28 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Notice Form{% endblock %}
+{% block content %}
+<h1 style="color:var(--navy);margin-bottom:24px;">{{ 'Edit' if item else 'Add' }} Notice</h1>
+<div class="admin-card">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-group"><label>Title *</label><input type="text" name="title" value="{{ item.title if item else '' }}" required></div>
+    <div class="form-group"><label>Category</label>
+      <select name="category">
+        {% for c in ['Admission','Exam','Holiday','Results','Events','Sports','Announcement'] %}
+        <option value="{{ c }}" {% if item and item.category==c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group"><label>Date</label><input type="date" name="date" value="{{ item.date.strftime('%Y-%m-%d') if item and item.date else '' }}"></div>
+    <div class="form-group"><label>Content</label><textarea name="content" rows="8">{{ item.content if item else '' }}</textarea></div>
+    <div class="form-group">
+      <label>Attachment (any file: PDF, DOC, Image, ZIP, etc.)</label>
+      <input type="file" name="attachment">
+      {% if item and item.attachment %}
+      <p style="margin-top:8px;font-size:0.85rem;">Current: <a href="{{ url_for('static', filename=item.attachment) }}" target="_blank">{{ item.attachment_name or item.attachment }}</a></p>
+      {% endif %}
+    </div>
+    <div class="form-group"><label><input type="checkbox" name="is_published" {% if not item or item.is_published %}checked{% endif %}> Published</label></div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Applications{% endblock %}
+{% block content %}
+<h1 style="margin-bottom:24px;">Admission Applications</h1>
+<div style="margin-bottom:16px;">
+  <a href="{{ url_for('admin.applications') }}" class="btn" style="padding:6px 12px;font-size:0.85rem;">All</a>
+  {% for s in ['Pending','Reviewed','Accepted','Rejected'] %}
+  <a href="{{ url_for('admin.applications', status=s) }}" class="btn" style="padding:6px 12px;font-size:0.85rem;{% if current_status==s %}background:var(--neon-gold);color:#052B50;{% endif %}">{{ s }}</a>
+  {% endfor %}
+</div>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>ID</th><th>Student</th><th>Parent</th><th>Phone</th><th>Program</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>#{{ item.id }}</td>
+        <td>{{ item.student_name }}</td>
+        <td>{{ item.parent_name }}</td>
+        <td>{{ item.phone }}</td>
+        <td>{{ item.grade_program or item.applying_for }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.created_at.strftime('%d %b %Y') if item.created_at else '' }}</td>
+        <td>
+          <a href="{{ url_for('admin.application_detail', id=item.id) }}" class="btn btn-primary" style="padding:6px 14px;font-size:0.85rem;">Edit / Update</a>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="8">No applications yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

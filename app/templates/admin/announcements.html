@@ -1,0 +1,31 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Announcements{% endblock %}
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+  <h1>Running / Floating Text</h1>
+  <a href="{{ url_for('admin.announcement_add') }}" class="btn btn-primary">Add Announcement</a>
+</div>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Text</th><th>Style</th><th>Order</th><th>Active</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.text[:80] }}{% if item.text|length > 80 %}...{% endif %}</td>
+        <td>{{ item.style }}</td>
+        <td>{{ item.order }}</td>
+        <td>{{ 'Yes' if item.is_active else 'No' }}</td>
+        <td>
+          <a href="{{ url_for('admin.announcement_edit', id=item.id) }}">Edit</a>
+          <form method="POST" action="{{ url_for('admin.announcement_delete', id=item.id) }}" style="display:inline;" onsubmit="return confirm('Delete?')">
+            <button type="submit" style="background:none;border:none;color:#f87171;cursor:pointer;margin-left:8px;">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No announcements. Add marquee or floating text for the homepage.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

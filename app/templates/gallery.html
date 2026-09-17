@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Gallery | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">MEMORIES</div>
+      <h2 class="section-title">School Gallery</h2>
+    </div>
+    {% if categories %}
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:32px;">
+      <a href="{{ url_for('main.gallery') }}" class="btn" style="background:{% if not current_category %}var(--navy);color:white{% else %}var(--light-blue);color:var(--navy){% endif %};padding:8px 16px;border-radius:20px;font-size:0.85rem;">All</a>
+      {% for c in categories %}
+      <a href="{{ url_for('main.gallery', category=c) }}" class="btn" style="background:{% if current_category==c %}var(--navy);color:white{% else %}var(--light-blue);color:var(--navy){% endif %};padding:8px 16px;border-radius:20px;font-size:0.85rem;">{{ c }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="gallery-grid">
+      {% for img in images %}
+      <div class="gallery-item">
+        <img src="{{ url_for('static', filename=img.image) }}" alt="{{ img.title or 'Gallery' }}">
+      </div>
+      {% else %}
+      <p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">Gallery images will appear here once uploaded from the admin panel.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

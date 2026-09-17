@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Faculty & Staff | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">OUR TEAM</div>
+      <h2 class="section-title">Faculty & Staff</h2>
+      <p class="section-desc">Dedicated educators committed to student success. Faculty profiles are managed through the admin panel.</p>
+    </div>
+    {% if faculty_list %}
+    <div class="programs-grid">
+      {% for f in faculty_list %}
+      <div class="program-card" style="text-align:center;">
+        <div class="program-img" style="height:180px;border-radius:50%;width:140px;margin:20px auto 0;overflow:hidden;">
+          {% if f.photo %}<img src="{{ url_for('static', filename=f.photo) }}" alt="{{ f.name }}">{% else %}👤{% endif %}
+        </div>
+        <div class="program-body">
+          <h3>{{ f.name }}</h3>
+          <p style="color:var(--navy);font-weight:600;">{{ f.designation }}</p>
+          <p>{{ f.department }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p style="text-align:center;color:var(--text-muted);">Faculty information will be added from the admin panel. No invented names are displayed.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

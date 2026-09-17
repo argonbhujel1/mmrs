@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Events | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">HAPPENING</div>
+      <h2 class="section-title">Events</h2>
+    </div>
+    <div class="events-grid">
+      {% for e in events %}
+      <div class="event-card">
+        <div class="event-img">{% if e.image %}<img src="{{ url_for('static', filename=e.image) }}" alt="{{ e.title }}">{% else %}📅{% endif %}</div>
+        <div class="event-body">
+          <div class="event-date">{{ e.event_date.strftime('%d %b %Y') if e.event_date else '' }}</div>
+          <h3>{{ e.title }}</h3>
+          <p>{{ e.description[:100] if e.description else '' }}</p>
+        </div>
+      </div>
+      {% else %}
+      <p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">Events will be listed here once added from the admin panel.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

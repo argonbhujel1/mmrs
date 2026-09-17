@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}About Us | Morang Model College & School{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image">
+        {% if about and about.image %}<img src="{{ url_for('static', filename=about.image) }}" alt="Campus">{% else %}<span>Campus</span>{% endif %}
+      </div>
+      <div class="about-content">
+        <div class="section-label">{{ about.label if about else 'ABOUT US' }}</div>
+        <h2 class="section-title">{{ about.title if about else 'Shaping Young Minds for a Better Tomorrow' }}</h2>
+        {% if about and about.content %}
+        {% for para in about.content.split('\n\n') %}<p>{{ para }}</p>{% endfor %}
+        {% else %}
+        <p>Morang Model Residential Secondary School is a private educational institution in Urlabari, Morang, committed to providing quality, practical, disciplined and value-based education.</p>
+        <p>Serving students since 2037 B.S., we offer education from early grades through Grade 12, including +2 Science and Management, and TU-affiliated BBS.</p>
+        {% endif %}
+        <div class="stats-card">
+          <div class="stat-item"><h4>Established</h4><p>{{ about.established if about else '2037 B.S.' }}</p></div>
+          <div class="stat-item"><h4>Academic Level</h4><p>{{ about.academic_level if about else 'Nursery – Grade 12' }}</p></div>
+          <div class="stat-item"><h4>+2 Programs</h4><p>{{ about.programs_plus2 if about else 'Science & Management' }}</p></div>
+          <div class="stat-item"><h4>Affiliation</h4><p>{{ about.affiliation if about else 'NEB / TU-linked BBS' }}</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% if principal %}
+<section class="section" style="background:#F8FBFE;">
+  <div class="container">
+    <div class="principal-grid">
+      <div class="principal-photo">
+        {% if principal.photo %}<img src="{{ url_for('static', filename=principal.photo) }}" alt="Principal">{% else %}<span>Principal</span>{% endif %}
+      </div>
+      <div class="principal-content">
+        <div class="section-label">MESSAGE FROM THE PRINCIPAL</div>
+        <h2 class="section-title">{{ principal.title }}</h2>
+        <blockquote>{{ principal.message }}</blockquote>
+        <div class="principal-name">{{ principal.name }}</div>
+        <div class="principal-desig">{{ principal.designation }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

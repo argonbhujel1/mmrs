@@ -1,0 +1,23 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Program Form{% endblock %}
+{% block content %}
+<h1 style="color:var(--navy);margin-bottom:24px;">{{ 'Edit' if item else 'Add' }} Program</h1>
+<div class="admin-card">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-group"><label>Name *</label><input type="text" name="name" value="{{ item.name if item else '' }}" required></div>
+    <div class="form-group"><label>Category</label>
+      <select name="category">
+        <option value="school" {% if item and item.category=='school' %}selected{% endif %}>School</option>
+        <option value="plus2" {% if item and item.category=='plus2' %}selected{% endif %}>+2</option>
+        <option value="college" {% if item and item.category=='college' %}selected{% endif %}>College</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Level</label><input type="text" name="level" value="{{ item.level if item else '' }}"></div>
+    <div class="form-group"><label>Description</label><textarea name="description" rows="4">{{ item.description if item else '' }}</textarea></div>
+    <div class="form-group"><label>Order</label><input type="number" name="order" value="{{ item.order if item else 0 }}"></div>
+    <div class="form-group"><label><input type="checkbox" name="is_active" {% if not item or item.is_active %}checked{% endif %}> Active</label></div>
+    <div class="form-group"><label>Image</label><input type="file" name="image" accept="image/*"></div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

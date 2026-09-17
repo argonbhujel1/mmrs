@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Student Register | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container" style="max-width:480px;">
+    <div class="section-header">
+      <div class="section-label">STUDENT</div>
+      <h2 class="section-title">Student Registration</h2>
+      <p class="section-desc">Your details must match the school admin records (Student ID or Name + Class + Parent phone).</p>
+    </div>
+    <div class="contact-form glass-card">
+      <form method="POST">
+        <div class="form-group"><label>Student ID (if you have one)</label><input type="text" name="student_id" placeholder="Roll / Student ID"></div>
+        <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin:8px 0;">OR match by details below</p>
+        <div class="form-group"><label>Full Name</label><input type="text" name="name" placeholder="As in school records"></div>
+        <div class="form-group"><label>Class / Grade</label><input type="text" name="class_grade" placeholder="e.g. Grade 10"></div>
+        <div class="form-group"><label>Parent Contact Number</label><input type="text" name="parent_phone" placeholder="Parent phone"></div>
+        <div class="form-group"><label>Email (optional)</label><input type="email" name="email"></div>
+        <div class="form-group"><label>Create Password *</label><input type="password" name="password" required minlength="4"></div>
+        <div class="form-group"><label>Confirm Password *</label><input type="password" name="password2" required minlength="4"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Register as Student</button>
+      </form>
+      <p style="margin-top:16px;text-align:center;font-size:0.9rem;">
+        <a href="{{ url_for('auth.login_student') }}" style="color:var(--navy);">Already registered? Login</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

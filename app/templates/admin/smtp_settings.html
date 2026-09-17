@@ -1,0 +1,22 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}SMTP Settings{% endblock %}
+{% block content %}
+<h1 style="margin-bottom:24px;">Email / SMTP Settings</h1>
+<p style="opacity:0.8;margin-bottom:20px;">Configure SMTP here. These settings are used for newsletter welcome emails and notifications. For Gmail use an App Password.</p>
+<div class="admin-card">
+  <form method="POST">
+    <div class="form-group"><label>MAIL_SERVER</label><input type="text" name="MAIL_SERVER" value="{{ settings.MAIL_SERVER or 'smtp.gmail.com' }}" placeholder="smtp.gmail.com"></div>
+    <div class="form-group"><label>MAIL_PORT</label><input type="text" name="MAIL_PORT" value="{{ settings.MAIL_PORT or '587' }}"></div>
+    <div class="form-group"><label>MAIL_USE_TLS</label>
+      <select name="MAIL_USE_TLS">
+        <option value="true" {% if settings.MAIL_USE_TLS in ['true','True','1','yes','on',''] %}selected{% endif %}>Yes (TLS)</option>
+        <option value="false" {% if settings.MAIL_USE_TLS in ['false','False','0','no'] %}selected{% endif %}>No</option>
+      </select>
+    </div>
+    <div class="form-group"><label>MAIL_USERNAME (email)</label><input type="text" name="MAIL_USERNAME" value="{{ settings.MAIL_USERNAME or '' }}" placeholder="your@gmail.com"></div>
+    <div class="form-group"><label>MAIL_PASSWORD (App Password)</label><input type="password" name="MAIL_PASSWORD" value="" placeholder="Leave blank to keep current"></div>
+    <div class="form-group"><label>MAIL_DEFAULT_SENDER</label><input type="text" name="MAIL_DEFAULT_SENDER" value="{{ settings.MAIL_DEFAULT_SENDER or '' }}" placeholder="same as username or noreply@"></div>
+    <button type="submit" class="btn btn-primary">Save SMTP Settings</button>
+  </form>
+</div>
+{% endblock %}

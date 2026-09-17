@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Morang Model College & School | Urlabari, Morang{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}Morang Model College & School, Urlabari, Morang — quality education, academic excellence, practical learning and holistic development from school level to higher education.{% endblock %}">
+  <meta name="keywords" content="Morang Model College, Morang Model School, Morang Model Residential Secondary School, School in Urlabari, +2 Science Urlabari, +2 Management Urlabari, BBS Urlabari, Schools in Morang">
+  <meta property="og:title" content="{% block og_title %}Morang Model College & School | Urlabari, Morang{% endblock %}">
+  <meta property="og:description" content="{% block og_desc %}Quality education, academic excellence and holistic development from Nursery to BBS in Urlabari, Morang.{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://morangmodel.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script>(function(){var t=localStorage.getItem('mm_theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+  {% block extra_head %}{% endblock %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Morang Model College & School",
+    "alternateName": "Morang Model Residential Secondary School",
+    "url": "https://morangmodel.com",
+    "logo": "https://morangmodel.com/static/images/logo.png",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Urlabari",
+      "addressLocality": "Morang",
+      "addressRegion": "Koshi Province",
+      "addressCountry": "NP"
+    },
+    "telephone": "+977-21-542730",
+    "email": "morangmodel2037@gmail.com",
+    "foundingDate": "1980"
+  }
+  </script>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span>📍 Urlabari, Morang, Nepal</span>
+      </div>
+      <div class="top-bar-center">
+        <a href="tel:+97721542730">☎ +977-21-542730</a>
+        <a href="mailto:morangmodel2037@gmail.com">✉ morangmodel2037@gmail.com</a>
+      </div>
+      <div class="top-bar-right">
+        <div class="socials">
+          {% if contact and contact.facebook %}<a href="{{ contact.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">FB</a>{% endif %}
+          {% if contact and contact.instagram %}<a href="{{ contact.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">IG</a>{% endif %}
+          {% if contact and contact.youtube %}<a href="{{ contact.youtube }}" target="_blank" rel="noopener" aria-label="YouTube">YT</a>{% endif %}
+          <a href="#" aria-label="Search">🔍</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% if announcements is defined and announcements %}
+  {% set marquees = announcements | selectattr('style', 'equalto', 'marquee') | list %}
+  {% if marquees %}
+  <div class="marquee-bar">
+    <div class="track">
+      {% for a in marquees %}
+        {% if a.link %}<a href="{{ a.link }}">{{ a.text }}</a>{% else %}{{ a.text }}{% endif %}
+        &nbsp;&nbsp;✦&nbsp;&nbsp;
+      {% endfor %}
+      {% for a in marquees %}
+        {% if a.link %}<a href="{{ a.link }}">{{ a.text }}</a>{% else %}{{ a.text }}{% endif %}
+        &nbsp;&nbsp;✦&nbsp;&nbsp;
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  {% endif %}
+
+  <!-- Main Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="{{ url_for('main.home') }}" class="logo-area">
+        <div class="logo-placeholder">MM</div>
+        <div class="logo-text">
+          <h1>MORANG MODEL<br>COLLEGE & SCHOOL</h1>
+          <span>Education for a Brighter Future</span>
+        </div>
+      </a>
+      <nav class="nav-menu">
+        <a href="{{ url_for('main.home') }}" class="{% if request.endpoint == 'main.home' %}active{% endif %}">Home</a>
+        <a href="{{ url_for('main.about') }}">About Us</a>
+        <a href="{{ url_for('main.academics') }}">Academics</a>
+        <a href="{{ url_for('main.programs') }}">Programs</a>
+        <a href="{{ url_for('main.faculty') }}">Faculty & Staff</a>
+        <a href="{{ url_for('admission.admission') }}">Admission</a>
+        <a href="{{ url_for('main.notices') }}">Notice & News</a>
+        <a href="{{ url_for('main.gallery') }}">Gallery</a>
+        <a href="{{ url_for('main.contact') }}">Contact</a>
+        <a href="{{ url_for('auth.login_choice') }}">Login</a>
+        <a href="{{ url_for('auth.register_choice') }}">Register</a>
+        <a href="{{ url_for('auth.view_student_profile') }}">Student Profile</a>
+        <a href="{{ url_for('admission.admission') }}" class="btn-apply">Apply Online</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Light / Dark">☀️</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&times;</button>
+    <a href="{{ url_for('main.home') }}">Home</a>
+    <a href="{{ url_for('main.about') }}">About Us</a>
+    <a href="{{ url_for('main.academics') }}">Academics</a>
+    <a href="{{ url_for('main.programs') }}">Programs</a>
+    <a href="{{ url_for('main.faculty') }}">Faculty & Staff</a>
+    <a href="{{ url_for('admission.admission') }}">Admission</a>
+    <a href="{{ url_for('main.notices') }}">Notice & News</a>
+    <a href="{{ url_for('main.gallery') }}">Gallery</a>
+    <a href="{{ url_for('main.contact') }}">Contact</a>
+    <a href="{{ url_for('auth.login_choice') }}">Login</a>
+    <a href="{{ url_for('auth.register_choice') }}">Register</a>
+    <a href="{{ url_for('auth.view_student_profile') }}">Student Profile</a>
+    <a href="{{ url_for('admission.admission') }}" class="btn-apply">Apply Online</a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Morang Model College & School</h3>
+          <p>Education for a Brighter Future</p>
+          <p style="font-size:0.85rem;opacity:0.6;">Quality education from Nursery to BBS in Urlabari, Morang.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="{{ url_for('main.home') }}">Home</a></li>
+            <li><a href="{{ url_for('main.about') }}">About</a></li>
+            <li><a href="{{ url_for('main.academics') }}">Academics</a></li>
+            <li><a href="{{ url_for('main.programs') }}">Programs</a></li>
+            <li><a href="{{ url_for('admission.admission') }}">Admission</a></li>
+            <li><a href="{{ url_for('main.gallery') }}">Gallery</a></li>
+            <li><a href="{{ url_for('main.contact') }}">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Academic</h4>
+          <ul>
+            <li><a href="{{ url_for('main.programs') }}">School</a></li>
+            <li><a href="{{ url_for('main.programs') }}">+2 Science</a></li>
+            <li><a href="{{ url_for('main.programs') }}">+2 Management</a></li>
+            <li><a href="{{ url_for('main.programs') }}">BBS</a></li>
+            <li><a href="{{ url_for('main.faculty') }}">Faculty & Staff</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p>📍 Urlabari, Morang, Koshi Province, Nepal</p>
+          <p>☎ +977-21-542730</p>
+          <p>✉ morangmodel2037@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Morang Model College & School. All Rights Reserved.</span>
+        <span class="powered-by">
+          Structured &amp; Powered by
+          <a href="https://www.arganbhujel.info.np/" target="_blank" rel="noopener">BAM Studio</a>
+          ·
+          <a href="https://www.arganbhujel.info.np/" target="_blank" rel="noopener">Contact BAM Studio</a>
+        </span>
+        <span><a href="#">Privacy Policy</a> · <a href="#">Terms &amp; Conditions</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="mobile-bottom-nav">
+    <div class="nav-items">
+      <a href="{{ url_for('main.home') }}" class="{% if request.endpoint == 'main.home' %}active{% endif %}">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        Home
+      </a>
+      <a href="{{ url_for('main.academics') }}">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+        Academics
+      </a>
+      <a href="{{ url_for('main.notices') }}">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+        Notice
+      </a>
+      <a href="{{ url_for('main.gallery') }}">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        Gallery
+      </a>
+      <a href="{{ url_for('main.contact') }}">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Contact
+      </a>
+    </div>
+  </nav>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block extra_js %}{% endblock %}
+
+  <!-- Newsletter Subscribe Modal (shows once per session) -->
+  <div id="subscribeModal" style="display:none;position:fixed;inset:0;background:rgba(5,43,80,0.75);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:white;border-radius:16px;padding:32px;max-width:420px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+      <button type="button" id="subscribeClose" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#666;">&times;</button>
+      <h3 style="color:#063B70;margin-bottom:8px;font-size:1.3rem;">Stay Updated</h3>
+      <p style="color:#5A6F85;font-size:0.95rem;margin-bottom:20px;">Subscribe with your email to receive notices, news and important updates from Morang Model College &amp; School.</p>
+      <form id="subscribeForm" method="POST" action="{{ url_for('main.subscribe') }}">
+        <input type="email" name="email" required placeholder="Your email address" style="width:100%;padding:12px 14px;border:1px solid #E2EAF2;border-radius:8px;margin-bottom:12px;font-size:1rem;">
+        <button type="submit" class="btn btn-primary" style="width:100%;">Subscribe</button>
+      </form>
+      <p id="subscribeMsg" style="margin-top:12px;font-size:0.9rem;display:none;"></p>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var modal = document.getElementById('subscribeModal');
+    var closeBtn = document.getElementById('subscribeClose');
+    var form = document.getElementById('subscribeForm');
+    var msg = document.getElementById('subscribeMsg');
+    if (!sessionStorage.getItem('mm_subscribe_shown')) {
+      setTimeout(function(){ modal.style.display = 'flex'; }, 2500);
+      sessionStorage.setItem('mm_subscribe_shown', '1');
+    }
+    if (closeBtn) closeBtn.onclick = function(){ modal.style.display = 'none'; };
+    modal && modal.addEventListener('click', function(e){ if(e.target===modal) modal.style.display='none'; });
+    if (form) {
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var fd = new FormData(form);
+        fetch(form.action, { method:'POST', body: fd, headers: {'X-Requested-With':'XMLHttpRequest'} })
+          .then(function(r){ return r.json(); })
+          .then(function(data){
+            msg.style.display = 'block';
+            msg.style.color = data.ok ? '#065F46' : '#991B1B';
+            msg.textContent = data.message || (data.ok ? 'Subscribed!' : 'Error');
+            if (data.ok) setTimeout(function(){ modal.style.display='none'; }, 2000);
+          })
+          .catch(function(){ form.submit(); });
+      });
+    }
+  })();
+  </script>
+
+
+  {% if announcements is defined and announcements %}
+  {% set floats = announcements | selectattr('style', 'equalto', 'floating') | list %}
+  {% if floats %}
+  <div class="floating-announce" id="floatingAnnounce">
+    <button type="button" class="close-float" onclick="this.parentElement.style.display='none'">&times;</button>
+    {% for a in floats[:1] %}
+      <div style="font-size:0.85rem;color:var(--neon-gold);margin-bottom:4px;font-weight:600;">Announcement</div>
+      {% if a.link %}<a href="{{ a.link }}">{{ a.text }}</a>{% else %}<span>{{ a.text }}</span>{% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var stored = localStorage.getItem('mm_theme');
+  var theme = stored || 'light';
+  root.setAttribute('data-theme', theme);
+  var btn = document.getElementById('themeToggle');
+  function syncBtn() {
+    if (btn) btn.textContent = root.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
+  }
+  syncBtn();
+  if (btn) {
+    btn.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('mm_theme', next);
+      syncBtn();
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

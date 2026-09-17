@@ -1,0 +1,32 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1 style="color:var(--navy);margin-bottom:24px;">Dashboard</h1>
+<div class="stats-row">
+  <div class="stat-box"><div class="num">{{ stats.applications }}</div><div class="label">Pending Applications</div></div>
+  <div class="stat-box"><div class="num">{{ stats.messages }}</div><div class="label">Unread Messages</div></div>
+  <div class="stat-box"><div class="num">{{ stats.students }}</div><div class="label">Students</div></div>
+  <div class="stat-box"><div class="num">{{ stats.teachers }}</div><div class="label">Teachers</div></div>
+  <div class="stat-box"><div class="num">{{ stats.notices }}</div><div class="label">Notices</div></div>
+  <div class="stat-box"><div class="num">{{ stats.subscribers }}</div><div class="label">Subscribers</div></div>
+</div>
+<div class="admin-card">
+  <h3 style="margin-bottom:16px;">Recent Applications</h3>
+  <table class="admin-table">
+    <thead><tr><th>Student</th><th>Phone</th><th>Program</th><th>Status</th><th>Date</th></tr></thead>
+    <tbody>
+      {% for a in recent_apps %}
+      <tr>
+        <td><a href="{{ url_for('admin.application_detail', id=a.id) }}">{{ a.student_name }}</a></td>
+        <td>{{ a.phone }}</td>
+        <td>{{ a.grade_program or a.applying_for }}</td>
+        <td>{{ a.status }}</td>
+        <td>{{ a.created_at.strftime('%d %b %Y') if a.created_at else '' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No applications yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

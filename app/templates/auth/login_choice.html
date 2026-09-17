@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Login Portal | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:50px;">
+  <div class="container" style="max-width:900px;">
+    <div class="section-header">
+      <div class="section-label">PORTAL</div>
+      <h1 class="section-title">Login</h1>
+      <p class="section-desc">Choose your role. New users can register first.</p>
+    </div>
+    <div class="portal-grid">
+      <a href="{{ url_for('auth.login_student') }}" class="glass-card portal-card">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🎓</div>
+        <h3 style="color:var(--navy);margin-bottom:8px;">Student</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);">Homework, notices &amp; profile</p>
+      </a>
+      <a href="{{ url_for('auth.login_teacher') }}" class="glass-card portal-card">
+        <div style="font-size:2.5rem;margin-bottom:12px;">👨‍🏫</div>
+        <h3 style="color:var(--navy);margin-bottom:8px;">Teacher</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);">Send homework with attachment</p>
+      </a>
+      <a href="{{ url_for('auth.login_parent') }}" class="glass-card portal-card">
+        <div style="font-size:2.5rem;margin-bottom:12px;">👪</div>
+        <h3 style="color:var(--navy);margin-bottom:8px;">Parent</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);">Child updates, homework &amp; notices</p>
+      </a>
+    </div>
+    <p style="margin-top:32px;text-align:center;font-size:0.95rem;color:var(--text-muted);">
+      New here? <a href="{{ url_for('auth.register_choice') }}" class="btn btn-primary" style="margin-left:8px;padding:10px 20px;">Register</a>
+    </p>
+    <p style="margin-top:16px;text-align:center;font-size:0.9rem;color:var(--text-muted);">
+      <a href="{{ url_for('auth.view_student_profile') }}" style="color:var(--navy);font-weight:600;">View Student Profile</a> (public lookup)
+    </p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Student Portal | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container" style="max-width:800px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:28px;">
+      <div>
+        <div class="section-label">STUDENT PORTAL</div>
+        <h2 class="section-title" style="margin:0;">Welcome, {{ student.name }}</h2>
+        <p style="color:var(--text-muted);">{{ student.class_grade }} {% if student.section %}· {{ student.section }}{% endif %}</p>
+      </div>
+      <a href="{{ url_for('auth.logout') }}" class="btn btn-primary">Logout</a>
+    </div>
+
+    <div class="glass-card" style="padding:28px;margin-bottom:28px;">
+      <h3 style="color:var(--navy);margin-bottom:12px;">My Profile</h3>
+      <p><strong>ID:</strong> {{ student.student_id or student.id }}</p>
+      <p><strong>Parent:</strong> {{ student.parent_name }} ({{ student.parent_phone }})</p>
+      <p><strong>Email:</strong> {{ student.email or '—' }}</p>
+      {% if student.photo %}<img src="{{ url_for('static', filename=student.photo) }}" alt="Photo" style="max-width:100px;border-radius:10px;margin-top:8px;">{% endif %}
+    </div>
+
+    <div class="glass-card" style="padding:28px;margin-bottom:28px;">
+      <h3 style="color:var(--navy);margin-bottom:16px;">📚 Homework</h3>
+      {% for h in homework %}
+      <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+        <strong>{{ h.title }}</strong>
+        <span style="font-size:0.8rem;color:var(--text-muted);"> · {{ h.teacher_name }} · {{ h.created_at.strftime('%d %b %Y') if h.created_at else '' }}</span>
+        {% if h.description %}<p style="font-size:0.9rem;margin-top:4px;color:var(--text-muted);">{{ h.description }}</p>{% endif %}
+        {% if h.attachment %}
+        <a href="{{ url_for('main.view_file', path=h.attachment) }}" target="_blank" style="color:var(--navy);">📎 Open attachment on site</a>
+        {% endif %}
+      </div>
+      {% else %}
+      <p style="color:var(--text-muted);">No homework yet.</p>
+      {% endfor %}
+    </div>
+
+    <div class="glass-card" style="padding:28px;">
+      <h3 style="color:var(--navy);margin-bottom:16px;">Notices</h3>
+      {% for n in notices %}
+      <div style="padding:10px 0;border-bottom:1px solid var(--border);">
+        <a href="{{ url_for('main.notice_detail', slug=n.slug) }}" style="color:var(--navy);font-weight:600;">{{ n.title }}</a>
+      </div>
+      {% else %}
+      <p style="color:var(--text-muted);">No notices.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

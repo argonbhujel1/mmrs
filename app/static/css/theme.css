@@ -1,0 +1,439 @@
+/* =====================================================
+   Morang Model – Glass + Neon UI
+   Default: LIGHT | Optional: dark via data-theme="dark"
+   Smooth animations + hover effects (user + admin)
+   ===================================================== */
+
+:root,
+[data-theme="light"] {
+  --navy: #063B70;
+  --navy-dark: #052B50;
+  --navy-deep: #041F3A;
+  --gold: #F7C928;
+  --gold-dark: #E5B820;
+  --cyan: #00D4FF;
+  --light-blue: #EEF7FF;
+  --text: #17324D;
+  --text-muted: #5A6F85;
+  --white: #FFFFFF;
+  --border: rgba(6, 59, 112, 0.12);
+  --bg: #F0F5FA;
+  --bg-elevated: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.72);
+  --shadow: 0 8px 32px rgba(6, 59, 112, 0.08);
+  --shadow-lg: 0 16px 48px rgba(6, 59, 112, 0.12);
+  --neon-glow: 0 0 20px rgba(247, 201, 40, 0.4);
+  --neon-soft: 0 0 12px rgba(247, 201, 40, 0.25);
+  --glass-blur: blur(18px);
+  --radius: 14px;
+  --radius-lg: 20px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --navy: #8EC5FF;
+  --navy-dark: #0B1929;
+  --navy-deep: #060E18;
+  --gold: #F7C928;
+  --gold-dark: #E5B820;
+  --cyan: #00F0FF;
+  --light-blue: rgba(14, 40, 70, 0.85);
+  --text: #E8EEF5;
+  --text-muted: #9BB0C5;
+  --white: #0D1B2A;
+  --border: rgba(247, 201, 40, 0.18);
+  --bg: #0A1628;
+  --bg-elevated: #122436;
+  --bg-card: rgba(13, 33, 55, 0.7);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.45);
+  --neon-glow: 0 0 24px rgba(247, 201, 40, 0.5);
+  --neon-soft: 0 0 14px rgba(247, 201, 40, 0.3);
+}
+
+/* ---------- Base ---------- */
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ---------- Glass surfaces ---------- */
+.glass-card,
+.feature-card,
+.program-card,
+.why-card,
+.notice-item,
+.event-card,
+.contact-form,
+.facility-card,
+.portal-card,
+.admin-card,
+.stat-box {
+  background: var(--bg-card) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.feature-card:hover,
+.program-card:hover,
+.why-card:hover,
+.notice-item:hover,
+.event-card:hover,
+.portal-card:hover,
+.facility-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--neon-glow), var(--shadow-lg);
+  border-color: rgba(247, 201, 40, 0.45) !important;
+}
+
+/* ---------- Buttons neon ---------- */
+.btn-primary,
+.btn-neon,
+.btn-apply,
+.admin-main .btn-primary,
+.admin-card .btn-primary {
+  background: linear-gradient(135deg, #F7C928, #E5B820) !important;
+  color: #052B50 !important;
+  font-weight: 700;
+  border: none !important;
+  border-radius: 12px;
+  box-shadow: var(--neon-soft);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.btn-primary:hover,
+.btn-neon:hover,
+.btn-apply:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--neon-glow);
+}
+
+.btn-outline {
+  transition: all var(--transition);
+}
+.btn-outline:hover {
+  box-shadow: 0 0 16px rgba(247, 201, 40, 0.35);
+}
+
+/* ---------- Header glass ---------- */
+.main-header {
+  background: var(--bg-card) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+.nav-menu a {
+  transition: color var(--transition), background var(--transition), transform 0.2s ease;
+}
+.nav-menu a:hover {
+  color: var(--navy);
+  background: var(--light-blue);
+  transform: translateY(-1px);
+}
+
+.logo-text h1,
+.section-title {
+  color: var(--navy) !important;
+  transition: color var(--transition);
+}
+.section-label {
+  color: var(--gold) !important;
+  text-shadow: 0 0 10px rgba(247, 201, 40, 0.35);
+  letter-spacing: 2px;
+}
+
+/* ---------- Hero ---------- */
+.hero-label {
+  text-shadow: 0 0 14px rgba(247, 201, 40, 0.55);
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { text-shadow: 0 0 10px rgba(247, 201, 40, 0.4); }
+  50% { text-shadow: 0 0 22px rgba(247, 201, 40, 0.75); }
+}
+
+.cta-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #041F3A 0%, #063B70 50%, #052B50 100%) !important;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 25% 50%, rgba(247, 201, 40, 0.18), transparent 45%),
+    radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.1), transparent 45%);
+  pointer-events: none;
+  animation: ctaShift 8s ease-in-out infinite alternate;
+}
+@keyframes ctaShift {
+  from { opacity: 0.7; }
+  to { opacity: 1; }
+}
+
+/* ---------- Marquee / floating ---------- */
+.marquee-bar {
+  background: linear-gradient(90deg, #052B50, #063B70, #052B50);
+  box-shadow: 0 0 20px rgba(247, 201, 40, 0.15);
+}
+.floating-announce {
+  animation: floatPulse 3s ease-in-out infinite;
+  transition: transform var(--transition), opacity var(--transition);
+}
+@keyframes floatPulse {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 20px rgba(247, 201, 40, 0.25); }
+  50% { transform: translateY(-8px); box-shadow: 0 0 32px rgba(247, 201, 40, 0.45); }
+}
+
+/* ---------- Gallery / images ---------- */
+.gallery-item {
+  transition: transform var(--transition), box-shadow var(--transition);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.gallery-item:hover {
+  transform: scale(1.04);
+  box-shadow: var(--neon-glow);
+}
+.gallery-item img {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.gallery-item:hover img { transform: scale(1.08); }
+
+.multi-images img {
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.multi-images img:hover {
+  transform: scale(1.05);
+  box-shadow: var(--neon-soft);
+}
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  transition: all var(--transition);
+  box-shadow: var(--shadow);
+}
+.theme-toggle:hover {
+  box-shadow: var(--neon-glow);
+  border-color: var(--gold);
+  transform: rotate(15deg) scale(1.08);
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Form focus neon ---------- */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.admin-card input:focus,
+.admin-card select:focus,
+.admin-card textarea:focus {
+  outline: none;
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(247, 201, 40, 0.2), var(--neon-soft);
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+
+/* ---------- Program link circle ---------- */
+.program-link {
+  transition: all var(--transition);
+}
+.program-link:hover {
+  background: var(--gold) !important;
+  color: #052B50 !important;
+  box-shadow: var(--neon-soft);
+  transform: scale(1.1);
+}
+
+/* =====================================================
+   ADMIN – Default LIGHT glass (override old dark)
+   ===================================================== */
+.admin-body {
+  background: linear-gradient(160deg, #F0F5FA 0%, #E8F0F8 50%, #F4F8FC 100%) !important;
+  min-height: 100vh;
+  color: var(--text) !important;
+}
+
+[data-theme="dark"] .admin-body {
+  background: linear-gradient(160deg, #0A1628 0%, #0D2137 50%, #122A45 100%) !important;
+  color: var(--text) !important;
+}
+
+.admin-sidebar {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border) !important;
+  box-shadow: 4px 0 24px rgba(6, 59, 112, 0.06);
+  color: var(--text) !important;
+}
+.admin-sidebar h2 {
+  color: var(--navy) !important;
+  text-shadow: 0 0 8px rgba(247, 201, 40, 0.25);
+  border-bottom: 1px solid var(--border) !important;
+}
+.admin-sidebar a {
+  color: var(--text-muted) !important;
+  transition: all 0.25s ease;
+  border-left: 3px solid transparent;
+}
+.admin-sidebar a:hover,
+.admin-sidebar a.active {
+  background: rgba(247, 201, 40, 0.12) !important;
+  color: var(--navy) !important;
+  border-left-color: var(--gold);
+}
+
+[data-theme="dark"] .admin-sidebar {
+  background: rgba(5, 43, 80, 0.9) !important;
+  border-right-color: rgba(247, 201, 40, 0.2) !important;
+}
+[data-theme="dark"] .admin-sidebar h2 { color: var(--gold) !important; }
+[data-theme="dark"] .admin-sidebar a { color: rgba(255, 255, 255, 0.75) !important; }
+[data-theme="dark"] .admin-sidebar a:hover,
+[data-theme="dark"] .admin-sidebar a.active {
+  color: var(--gold) !important;
+  background: rgba(247, 201, 40, 0.12) !important;
+}
+
+.admin-main {
+  color: var(--text) !important;
+}
+.admin-main h1 {
+  color: var(--navy) !important;
+  text-shadow: none;
+}
+[data-theme="dark"] .admin-main h1 {
+  color: var(--gold) !important;
+  text-shadow: 0 0 10px rgba(247, 201, 40, 0.3);
+}
+
+.admin-card {
+  background: var(--bg-card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.admin-card:hover {
+  box-shadow: var(--neon-soft), var(--shadow-lg);
+}
+.admin-card label { color: var(--text) !important; }
+.admin-card input,
+.admin-card select,
+.admin-card textarea {
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  border-radius: 10px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.admin-table th {
+  background: rgba(247, 201, 40, 0.12) !important;
+  color: var(--navy) !important;
+}
+.admin-table td {
+  border-bottom-color: var(--border) !important;
+  color: var(--text) !important;
+}
+.admin-table a {
+  color: var(--navy);
+  transition: color 0.2s;
+}
+.admin-table a:hover { color: var(--gold-dark); text-shadow: 0 0 8px rgba(247, 201, 40, 0.3); }
+
+.stat-box {
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.stat-box:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--neon-soft), var(--shadow);
+}
+.stat-box .num {
+  color: var(--navy) !important;
+  text-shadow: 0 0 8px rgba(247, 201, 40, 0.2);
+}
+.stat-box .label { color: var(--text-muted) !important; }
+
+[data-theme="dark"] .stat-box .num { color: var(--gold) !important; }
+
+/* ---------- Mobile bottom nav ---------- */
+.mobile-bottom-nav {
+  background: var(--bg-card) !important;
+  backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--border);
+}
+.mobile-bottom-nav a { transition: color 0.25s, transform 0.2s; }
+.mobile-bottom-nav a:hover,
+.mobile-bottom-nav a.active {
+  color: var(--navy);
+  transform: translateY(-2px);
+}
+
+/* ---------- Footer ---------- */
+.footer a { transition: color 0.25s; }
+.footer a:hover { color: var(--gold) !important; }
+
+/* ---------- Portal grid ---------- */
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .portal-grid { grid-template-columns: 1fr; }
+}
+
+/* Stagger animation helper */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.feature-card, .program-card, .why-card {
+  animation: fadeInUp 0.6s ease backwards;
+}
+.feature-card:nth-child(1) { animation-delay: 0.05s; }
+.feature-card:nth-child(2) { animation-delay: 0.1s; }
+.feature-card:nth-child(3) { animation-delay: 0.15s; }
+.feature-card:nth-child(4) { animation-delay: 0.2s; }
+.feature-card:nth-child(5) { animation-delay: 0.25s; }
+.feature-card:nth-child(6) { animation-delay: 0.3s; }
+
+
+/* Footer BAM Studio credit */
+.footer-bottom .powered-by a {
+  color: var(--gold);
+  font-weight: 600;
+  transition: text-shadow 0.25s ease, color 0.25s ease;
+}
+.footer-bottom .powered-by a:hover {
+  text-shadow: 0 0 12px rgba(247, 201, 40, 0.5);
+  color: #fff;
+}

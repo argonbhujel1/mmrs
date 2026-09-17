@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ notice.title }} | Morang Model{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:40px;">
+  <div class="container" style="max-width:800px;">
+    <div class="glass-card" style="padding:32px;">
+      <span class="notice-cat">{{ notice.category or 'Notice' }}</span>
+      <h1 class="section-title" style="margin:12px 0;">{{ notice.title }}</h1>
+      <p style="color:var(--text-muted);margin-bottom:24px;">{{ notice.date.strftime('%d %B %Y') if notice.date else '' }}</p>
+      <div class="notice-body-content" style="line-height:1.8;">{{ notice.content | replace('\n', '<br>') | safe }}</div>
+
+      {% if notice.attachment %}
+      {% set ext = (notice.attachment.split('.')[-1] or '')|lower %}
+      <div class="embed-block" style="margin-top:28px;">
+        <h3 style="color:var(--navy);margin-bottom:12px;font-size:1rem;">📎 Attachment (view on site)</h3>
+        {% if ext in ['jpg','jpeg','png','gif','webp','bmp'] %}
+        <img src="{{ url_for('static', filename=notice.attachment) }}" alt="{{ notice.attachment_name or 'Attachment' }}" style="max-width:100%;border-radius:12px;">
+        {% elif ext == 'pdf' %}
+        <iframe src="{{ url_for('static', filename=notice.attachment) }}#toolbar=1" style="width:100%;min-height:520px;border:0;border-radius:12px;background:#fff;"></iframe>
+        <p style="margin-top:10px;font-size:0.85rem;opacity:0.8;">If PDF does not display, <a href="{{ url_for('main.view_file', path=notice.attachment) }}" target="_blank" style="color:var(--navy);">open in new tab</a>.</p>
+        {% else %}
+        <p>File: <strong>{{ notice.attachment_name or notice.attachment }}</strong></p>
+        <a href="{{ url_for('main.view_file', path=notice.attachment) }}" target="_blank" class="btn btn-primary" style="margin-top:8px;">Open file on site</a>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <a href="{{ url_for('main.notices') }}" class="btn btn-primary" style="margin-top:28px;">← Back to Notices</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

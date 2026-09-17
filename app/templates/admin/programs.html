@@ -1,0 +1,26 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Programs{% endblock %}
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+  <h1 style="color:var(--navy);">Programs</h1>
+  <a href="{{ url_for('admin.program_add') }}" class="btn btn-primary">Add Program</a>
+</div>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Name</th><th>Category</th><th>Level</th><th>Order</th><th>Active</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.name }}</td><td>{{ item.category }}</td><td>{{ item.level }}</td><td>{{ item.order }}</td>
+        <td>{{ 'Yes' if item.is_active else 'No' }}</td>
+        <td><a href="{{ url_for('admin.program_edit', id=item.id) }}">Edit</a>
+          <form method="POST" action="{{ url_for('admin.program_delete', id=item.id) }}" style="display:inline;" onsubmit="return confirm('Delete?')">
+            <button type="submit" style="background:none;border:none;color:#c00;cursor:pointer;">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

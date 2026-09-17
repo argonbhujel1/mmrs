@@ -1,0 +1,18 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<h1 style="color:var(--navy);margin-bottom:24px;">About School</h1>
+<div class="admin-card">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-group"><label>Label</label><input type="text" name="label" value="{{ about.label or '' }}"></div>
+    <div class="form-group"><label>Title</label><input type="text" name="title" value="{{ about.title or '' }}"></div>
+    <div class="form-group"><label>Content</label><textarea name="content" rows="8">{{ about.content or '' }}</textarea></div>
+    <div class="form-group"><label>Established</label><input type="text" name="established" value="{{ about.established or '' }}"></div>
+    <div class="form-group"><label>Academic Level</label><input type="text" name="academic_level" value="{{ about.academic_level or '' }}"></div>
+    <div class="form-group"><label>+2 Programs</label><input type="text" name="programs_plus2" value="{{ about.programs_plus2 or '' }}"></div>
+    <div class="form-group"><label>Affiliation</label><input type="text" name="affiliation" value="{{ about.affiliation or '' }}"></div>
+    <div class="form-group"><label>Image</label><input type="file" name="image" accept="image/*"></div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<h1 style="color:var(--navy);margin-bottom:24px;">Contact Messages</h1>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Date</th><th>Read</th><th></th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr style="{% if not item.is_read %}font-weight:600;{% endif %}">
+        <td>{{ item.name }}</td><td>{{ item.email }}</td><td>{{ item.subject }}</td>
+        <td>{{ item.created_at.strftime('%d %b %Y') if item.created_at else '' }}</td>
+        <td>{{ 'Yes' if item.is_read else 'No' }}</td>
+        <td>
+          {% if not item.is_read %}
+          <form method="POST" action="{{ url_for('admin.message_read', id=item.id) }}" style="display:inline;">
+            <button type="submit" class="btn" style="padding:4px 10px;font-size:0.8rem;">Mark Read</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      <tr><td colspan="6" style="font-size:0.85rem;color:var(--text-muted);padding-top:0;">{{ item.message }}</td></tr>
+      {% else %}
+      <tr><td colspan="6">No messages.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

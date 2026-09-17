@@ -1,0 +1,33 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Students{% endblock %}
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+  <h1 style="color:var(--navy);">Students</h1>
+  <a href="{{ url_for('admin.student_add') }}" class="btn btn-primary">Add Student</a>
+</div>
+<p style="margin-bottom:16px;color:var(--text-muted);font-size:0.9rem;">Only students listed here can login as Student. Upload any document format (PDF, DOC, image, ZIP…).</p>
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>ID</th><th>Name</th><th>Class</th><th>Parent Phone</th><th>Active</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.student_id or item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.class_grade }}</td>
+        <td>{{ item.parent_phone }}</td>
+        <td>{{ 'Yes' if item.is_active else 'No' }}</td>
+        <td>
+          <a href="{{ url_for('admin.student_edit', id=item.id) }}">Edit</a>
+          <form method="POST" action="{{ url_for('admin.student_delete', id=item.id) }}" style="display:inline;" onsubmit="return confirm('Delete student?')">
+            <button type="submit" style="background:none;border:none;color:#c00;cursor:pointer;margin-left:8px;">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6">No students yet. Add students so they can login.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
